@@ -27,7 +27,7 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
 
   //ball variables
   double ballX = 0;
-  double ballY = 0;
+  double ballY = 0.13;
   double ballXIncrement = 0.01;
   double ballYIncrement = 0.01;
   Direction ballXDirection = Direction.left;
@@ -96,51 +96,58 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
   }
 
   void startGame() {
-    isGameOver = false;
-    isGameStarted = true;
-    ScorePoint = 0;
-    timers = 0;
-    Random random = Random();
-    randomList.clear();
-    while (randomList.length < 20) {
-      for (int i = 1; i < 21; i++) {
-        List<Map<String, dynamic>> list = [];
-        while (list.length < 10) {
-          int randomNumber = random.nextInt(16) + 1;
-          if (!list.any((item) => item['item'] == randomNumber)) {
-            list.add({
-              'item': randomNumber,
-              "isBrickBroken": false,
-              "count": random.nextInt(2)
-            });
+    Future.delayed(Duration(milliseconds: 500), () {
+      ScorePoint = 0;
+      isGameOver = false;
+      isGameStarted = true;
+      Random random = Random();
+      randomList.clear();
+      while (randomList.length < 20) {
+        for (int i = 1; i < 21; i++) {
+          List<Map<String, dynamic>> list = [];
+          while (list.length < 10) {
+            int randomNumber = random.nextInt(16) + 1;
+            if (!list.any((item) => item['item'] == randomNumber)) {
+              list.add({
+                'item': randomNumber,
+                "isBrickBroken": false,
+                "count": random.nextInt(2)
+              });
+            }
           }
+          randomList.add({"row$i": list});
         }
-        randomList.add({"row$i": list});
-      }
-    }
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      timers++;
-    });
-
-    Timer.periodic(const Duration(milliseconds: 15), (timer) {
-      moveBall();
-      updateDirection();
-      checkForBrokenBricks();
-      if (isAllBrickBroken()) {
-        youWin = true;
-        isGameStarted = false;
-      }
-      if (isPlayerDead()) {
-        timer.cancel();
-        isGameOver = true;
-        isGameStarted = false;
-        ballX = 0;
-        ballY = 0;
-        playerWidth = 0.4;
-        playerX = -0.2;
       }
 
-      setState(() {});
+      Timer.periodic(Duration(seconds: 1), (timerss) {
+        timers++;
+        if (isGameOver == true) {
+          timerss.cancel();
+          timers = 0;
+        }
+      });
+
+      Timer.periodic(const Duration(milliseconds: 15), (timer) {
+        moveBall();
+        updateDirection();
+        checkForBrokenBricks();
+        if (isAllBrickBroken()) {
+          youWin = true;
+          isGameStarted = false;
+        }
+        if (isPlayerDead()) {
+          timer.cancel();
+          isGameOver = true;
+          isGameStarted = false;
+          ballX = 0;
+          ballY = 0.13;
+          playerWidth = 0.4;
+          playerX = -0.2;
+        }
+
+        setState(() {});
+      });
+      ;
     });
   }
 
@@ -237,7 +244,6 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
         body: SafeArea(
             child: Stack(
           children: [
-            //tap to play the game
             CoverScreen(isGameStarted: isGameStarted),
             //game Over
             youWin

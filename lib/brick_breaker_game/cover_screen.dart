@@ -10,7 +10,7 @@ class CoverScreen extends StatelessWidget {
         ? const SizedBox()
         : Container(
             alignment: const Alignment(0, -0.1),
-            child: const Text(
+            child: Text(
               'Tap to play',
               style: TextStyle(color: Colors.deepOrange, fontSize: 30),
             ),
