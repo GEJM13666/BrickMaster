@@ -118,7 +118,7 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
         randomList.add({"row$i": list});
       }
     }
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    Timer.periodic(Duration(seconds: 1), (timer) {
       timers++;
     });
 
@@ -259,7 +259,7 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
                 alignment: const Alignment(1, 0.5),
                 child: IconButton(
                   iconSize: 72,
-                  padding: const EdgeInsets.only(right: 5),
+                  padding: EdgeInsets.only(right: 5),
                   onPressed: moveRight,
                   icon: const Icon(Icons.arrow_forward_ios),
                 ),
@@ -268,7 +268,7 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
                 alignment: const Alignment(-1, 0.5),
                 child: IconButton(
                   iconSize: 72,
-                  padding: const EdgeInsets.only(left: 15),
+                  padding: EdgeInsets.only(left: 15),
                   onPressed: moveLeft,
                   icon: const Icon(Icons.arrow_back_ios),
                 ),
@@ -320,10 +320,10 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
                 : const SizedBox(),
             Center(
               child: Container(
-                margin: const EdgeInsets.only(top: 350),
+                margin: EdgeInsets.only(top: 350),
                 child: Text(
                   ScorePoint.toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 100,
                       fontWeight: FontWeight.bold,
                       color: Colors.black12),
@@ -332,10 +332,10 @@ class _GameBoardBrickBreakerState extends State<GameBoardBrickBreaker> {
             ),
             Center(
               child: Container(
-                margin: const EdgeInsets.only(top: 470),
+                margin: EdgeInsets.only(top: 470),
                 child: Text(
                   '${timers.toString()} Seconds',
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black12),
